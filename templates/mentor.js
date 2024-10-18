@@ -5,63 +5,63 @@ const mentors = [
         name: "Dr. Birmohan Singh",
         education: ["Ph.D.", "M.E."],
         email: "birmohansingh@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=1"
+        imageUrl: "templates/images/Faculty_photo/prof/Professors/Dr.Birmohan_Singh.jpg"
     },
     {
         id: 2,
         name: "Dr. Damanpreet Singh",
         education: ["Ph.D.", "M.Tech", "B.Tech"],
         email: "damanpreets@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=2"
+        imageUrl: "templates/images/Faculty_photo/prof/Professors/Dr.Damanpreet_Singh.jpg"
     },
     {
         id: 3,
         name: "Dr. Major Singh Goraya",
         education: ["Ph.D.", "M.Tech.", "B.Tech."],
         email: "mjrsingh@yahoo.com",
-        imageUrl: "https://picsum.photos/300/300?random=3"
+        imageUrl: "templates/images/Faculty_photo/prof/Professors/Dr.Manoj_Singh_Goraya.jpg"
     },
     {
         id: 4,
         name: "Dr. Manoj Sachan",
         education: ["B.Tech(CS)", "M.E(CS)", "Ph.D (CSE)"],
         email: "manojsachan@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=4"
+        imageUrl: "templates/images/Faculty_photo/prof/Professors/Dr.Manoj_Sachan.jpg"
     },
     {
         id: 5,
         name: "Dr. Gurjinder Kaur",
         education: ["B.E.", "M.S. BITS Pilani", "Ph.D SLIET"],
         email: "gurjinder13@yahoo.com",
-        imageUrl: "https://picsum.photos/300/300?random=5"
+        imageUrl: "templates/images/Faculty_photo/prof/Associate_Professors/Dr.Gurjindar_Kaur.jpg"
     },
     {
         id: 6,
         name: "Dr. Amar Nath",
         education: ["Ph.D. (CSE)", "M. Tech. (CSE)", "B. Tech. (CSE)"],
         email: "amarnath@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=6"
+        imageUrl: "templates/images/Faculty_photo/prof/Assistant_Professors/Dr.Amar_Nath.jpg"
     },
     {
         id: 7,
         name: "Dr. Jagdeep Singh",
         education: ["Ph.D", "M.Tech(CSE)", "B.Tech(CSE)"],
         email: "jagdeep@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=7"
+        imageUrl: "templates/images/Faculty_photo/prof/Assistant_Professors/Dr.Jagdeep_Singh.jpg"
     },
     {
         id: 8,
         name: "Dr. Manminder Singh",
         education: ["B.Tech (CSE)", "M.Tech (CSE)", "Ph. D (CSE)"],
         email: "manminderldh@gmail.com",
-        imageUrl: "https://picsum.photos/300/300?random=8"
+        imageUrl: "templates/images/Faculty_photo/prof/Assistant_Professors/Dr.Manminder_Singh.jpg"
     },
     {
         id: 9,
         name: "Dr. Preetpal Kaur Buttar",
         education: ["PhD"],
         email: "preetpal@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=9"
+        imageUrl: "templates/images/Faculty_photo/prof/Assistant_Professors/Dr.Preetpal_Kaur_Buttar.jpg"
     },
 ];
 
