@@ -2,40 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentor Availability</title>
-    <link rel="stylesheet" href="templates/mentorstyle.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Availability</title>
+  <link rel="stylesheet" href="templates/mentorstyle.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Mentor Availability</h1>
-        <div class="availability-grid" id="availabilityGrid"></div>
-        <button class="book-button" id="bookButton" disabled>Book Selected Slot</button>
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <img src="/api/placeholder/32/32" alt="Logo">
+      MentorConnect
+    </a>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="mentor.html">Mentors</a>
+      <a href="#contact">Contact</a>
     </div>
+  </nav>
+  <div class="container">
+    <h1>Mentor Availability</h1>
+    <div class="availability-grid" id="availabilityGrid"></div>
+    <button class="book-button" id="bookButton" disabled>Book Selected Slot</button>
+  </div>
 
-    <!-- Modal Structure -->
+  <!-- Modal Structure -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
-      <h2>Enter Your Details</h2>
+      <h2>Book Appointment</h2>
+      <p>Mentorship Time: <span id="selectedDateTime"></span></p>
       <form id="userForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" required><br><br>
-
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required><br><br>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required><br><br>
+        </div>
+        <div>
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" name="phone" required><br><br>
+        </div>
         <button type="submit" class="book-button">Submit</button>
       </form>
     </div>
   </div>
 
-    <script src="templates/mentorscript.js"></script>
+  <script src="templates/mentorscript.js"></script>
 </body>
 
 </html>

@@ -63,15 +63,6 @@ const mentors = [
         email: "preetpal@sliet.ac.in",
         imageUrl: "https://picsum.photos/300/300?random=9"
     },
-
-    // Random Data 
-    {
-        id: 10,
-        name: "Dr. Rakesh Kumar",
-        education: ["Ph.D.", "M.Tech.", "B.Tech."],
-        email: "rakesh@sliet.ac.in",
-        imageUrl: "https://picsum.photos/300/300?random=10"
-    }
 ];
 
 function generateEducationBadges(education) {

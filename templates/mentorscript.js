@@ -80,17 +80,7 @@ const mentors = [
             { "time": "3:00 PM - 4:00 PM", "booked": false }
         ]
     },
-    {
-        id: 10,
-        name: "Dr. Rakesh Kumar",
-        availability: [
-            { "time": "10:00 AM - 11:00 AM", "booked": false },
-            { "time": "12:00 PM - 1:00 PM", "booked": true },
-            { "time": "3:00 PM - 4:00 PM", "booked": false }
-        ]
-    }
 ];
-
 function getMentorById(id) {
     return mentors.find(mentor => mentor.id === parseInt(id));
 }
@@ -98,17 +88,19 @@ function getMentorById(id) {
 function renderAvailability(mentor) {
     const grid = document.getElementById('availabilityGrid');
     grid.innerHTML = '';
-
     mentor.availability.forEach((slot, index) => {
         const slotElement = document.createElement('div');
         slotElement.classList.add('time-slot');
         if (slot.booked) {
             slotElement.classList.add('booked');
         }
-        slotElement.innerHTML = `<p>${slot.time}</p>`;
+        const button = document.createElement('button');
+        button.textContent = slot.time;
+        button.disabled = slot.booked;
+        slotElement.appendChild(button);
 
         if (!slot.booked) {
-            slotElement.addEventListener('click', () => toggleSlotSelection(slotElement, index));
+            button.addEventListener('click', () => toggleSlotSelection(slotElement, index));
         }
 
         grid.appendChild(slotElement);
@@ -116,25 +108,19 @@ function renderAvailability(mentor) {
 }
 
 function toggleSlotSelection(slotElement, index) {
-    slotElement.classList.toggle('selected');
+    const allSlots = document.querySelectorAll('.time-slot');
+    allSlots.forEach(slot => slot.classList.remove('selected'));
+    slotElement.classList.add('selected');
     updateBookButton();
 }
 
 function updateBookButton() {
-    const selectedSlots = document.querySelectorAll('.time-slot.selected');
+    const selectedSlot = document.querySelector('.time-slot.selected');
+    const dateInput = document.getElementById('dateInput');
     const bookButton = document.getElementById('bookButton');
-    bookButton.disabled = selectedSlots.length === 0;
+    bookButton.disabled = !selectedSlot || !dateInput.value;
 }
 
-// document.getElementById('bookButton').addEventListener('click', () => {
-//     const selectedSlots = document.querySelectorAll('.time-slot.selected');
-//     if (selectedSlots.length > 0) {
-//         alert('Booking successful! An email confirmation will be sent shortly.');
-//         location.reload(); // Refresh the page to reset selections
-//     }
-// });
-
-// Get mentor ID from URL parameter
 const urlParams = new URLSearchParams(window.location.search);
 const mentorId = urlParams.get('id');
 
@@ -143,6 +129,16 @@ if (mentorId) {
     if (mentor) {
         document.querySelector('h1').textContent = `${mentor.name}'s Availability`;
         renderAvailability(mentor);
+
+        // Add date input
+        const dateInput = document.createElement('input');
+        dateInput.type = 'date';
+        // Add this inside the if block where date input is created
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.id = 'dateInput';
+        dateInput.addEventListener('change', updateBookButton);
+        document.querySelector('.container').insertBefore(dateInput, document.getElementById('availabilityGrid'));
     } else {
         document.querySelector('.container').innerHTML = '<h1>Mentor not found</h1>';
     }
@@ -150,41 +146,39 @@ if (mentorId) {
     document.querySelector('.container').innerHTML = '<h1>Invalid mentor ID</h1>';
 }
 
-// Get modal, button, and close elements
+// Modal functionality
 const modal = document.getElementById('modal');
 const bookButton = document.getElementById('bookButton');
 const closeModal = document.getElementById('closeModal');
 
-// Enable the book button and set up the click event
-bookButton.disabled = false;  // Enable the button initially (remove this if it should be enabled dynamically)
-
-// When the button is clicked, show the modal
 bookButton.addEventListener('click', () => {
-  modal.style.display = 'block';
+    const selectedSlot = document.querySelector('.time-slot.selected button');
+    const selectedDate = document.getElementById('dateInput').value;
+
+    if (selectedSlot && selectedDate) {
+        document.getElementById('selectedDateTime').textContent = `${selectedDate} at ${selectedSlot.textContent}`;
+        modal.style.display = 'block';
+    }
 });
 
-// When the close (x) is clicked, hide the modal
 closeModal.addEventListener('click', () => {
-  modal.style.display = 'none';
+    modal.style.display = 'none';
 });
 
-// Hide modal when clicking anywhere outside of the modal content
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
 };
 
-// Form submission handler
-document.getElementById('userForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent form from submitting normally
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
+document.getElementById('userForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const selectedDateTime = document.getElementById('selectedDateTime').textContent;
 
-  // Perform actions with the form data here
-  console.log(`Name: ${name}, Email: ${email}, Phone: ${phone}`);
+    console.log(`Name: ${name}, Email: ${email}, Phone: ${phone}, Selected Date/Time: ${selectedDateTime}`);
 
-  // Close the modal after submission
-  modal.style.display = 'none';
+    modal.style.display = 'none';
 });
