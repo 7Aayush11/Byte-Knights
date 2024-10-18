@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Card Slider</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="our team.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+        <img src="/api/placeholder/32/32" alt="Logo">
+        ConnectMinds
+    </a>
+    <div class="nav-links">
+        <a href="about.html">About Us</a>
+        <a href="our team.html">Our Team</a>
+        <a href="mentor.html">Mentors</a>
+    </div>
+</nav>
+
+  <div class="page-wrapper">
+    <h1 class="slider-title">Our Team Members</h1>
+    
+    <div class="slider-wrapper">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="C:\Users\Vivek Vasani\Desktop\ByteKnights\Responsive Card Slider  with chat\images\img-1.jpg"  alt="James Wilson" class="card-image">
+              <h2 class="card-name">James Wilson</h2>
+              <p class="card-profession">Software Developer</p>
+              <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+            <div class="card-back">
+              <h3>About Me</h3>
+              <p>Full-stack developer with 5 years of experience in building scalable web applications.</p>
+              <button class="card-button" onclick="openChatBox()">Contact Me</button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="C:\Users\Vivek Vasani\Desktop\ByteKnights\Responsive Card Slider  with chat\images\img-2.jpg" alt="Sarah Johnson" class="card-image">
+              <h2 class="card-name">Sarah Johnson</h2>
+              <p class="card-profession">UI/UX Designer</p>
+              <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
+              </div>
+            </div>
+            <div class="card-back">
+              <h3>About Me</h3>
+              <p>Creative designer focused on crafting beautiful and intuitive user experiences.</p>
+              <button class="card-button" onclick="openChatBox()">Contact Me</button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="C:\Users\Vivek Vasani\Desktop\ByteKnights\Responsive Card Slider  with chat\images\img-6.jpg" alt="Michael Brown" class="card-image">
+              <h2 class="card-name">Michael Brown</h2>
+              <p class="card-profession">Project Manager</p>
+              <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <div class="card-back">
+              <h3>About Me</h3>
+              <p>Experienced manager specializing in agile methodologies and team leadership.</p>
+              <button class="card-button" onclick="openChatBox()">Contact Me</button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="C:\Users\Vivek Vasani\Desktop\ByteKnights\Responsive Card Slider  with chat\images\img-4.jpg" alt="Emily Davis" class="card-image">
+              <h2 class="card-name">Emily Davis</h2>
+              <p class="card-profession">Marketing Specialist</p>
+              <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+            <div class="card-back">
+              <h3>About Me</h3>
+              <p>Digital marketing expert with a passion for growth strategies and brand development.</p>
+              <button class="card-button" onclick="openChatBox()">Contact Me</button>
+
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="C:\Users\Vivek Vasani\Desktop\ByteKnights\Responsive Card Slider  with chat\images\img-3.jpg" alt="Christopher Garcia" class="card-image">
+              <h2 class="card-name">Christopher Garcia</h2>
+              <p class="card-profession">Data Scientist</p>
+              <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon"><i class="fas fa-chart-bar"></i></a>
+              </div>
+            </div>
+            <div class="card-back">
+              <h3>About Me</h3>
+              <p>Analytics professional specializing in machine learning and predictive modeling.</p>
+              <button class="card-button" onclick="openChatBox()">Contact Me</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-button slider-button-prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-button slider-button-next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div class="slider-pagination"></div>
+  </div>
+
+  <div id="chatboxContainer" class="hidden">
+    <div class="container">
+      <div class="chat-window">
+        <div class="chat-header">
+          <h2>Mentor-Student Chat</h2>
+          <div class="theme-toggle">
+            <input type="checkbox" id="darkModeToggle">
+            <label for="darkModeToggle"><i class="fas fa-moon"></i></label>
+          </div>
+        </div>
+        <div id="chatBox" class="chat-box"></div>
+        <div id="typingIndicator" class="typing-indicator hidden">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="messageInput" placeholder="Type your message here...">
+          <label for="imageUpload" class="image-upload-label">
+            <i class="fas fa-image"></i>
+          </label>
+          <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+          <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div class="chat-footer">
+          <button id="clearChatBtn">Clear Chat</button>
+          <div class="emoji-picker">
+            <button id="emojiToggle"><i class="far fa-smile"></i></button>
+            <div id="emojiList" class="hidden"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-header">
+      <h2>Mentor-Student Chat</h2>
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle">
+        <label for="darkModeToggle"><i class="fas fa-moon"></i></label>
+      </div>
+      <button class="close-chat" onclick="closeChatBox()"><i class="fas fa-times"></i></button>
+    </div>  
+  </div>
+  
+
+
+
+  <script src="our team.js"></script>
+</body>
+</html>
