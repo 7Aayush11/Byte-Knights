@@ -199,6 +199,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     padding: 2rem;
+    margin-top: 35px;
 }
 
 .card {

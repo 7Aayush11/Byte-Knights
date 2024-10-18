@@ -126,13 +126,13 @@ function updateBookButton() {
     bookButton.disabled = selectedSlots.length === 0;
 }
 
-document.getElementById('bookButton').addEventListener('click', () => {
-    const selectedSlots = document.querySelectorAll('.time-slot.selected');
-    if (selectedSlots.length > 0) {
-        alert('Booking successful! An email confirmation will be sent shortly.');
-        location.reload(); // Refresh the page to reset selections
-    }
-});
+// document.getElementById('bookButton').addEventListener('click', () => {
+//     const selectedSlots = document.querySelectorAll('.time-slot.selected');
+//     if (selectedSlots.length > 0) {
+//         alert('Booking successful! An email confirmation will be sent shortly.');
+//         location.reload(); // Refresh the page to reset selections
+//     }
+// });
 
 // Get mentor ID from URL parameter
 const urlParams = new URLSearchParams(window.location.search);
@@ -149,3 +149,42 @@ if (mentorId) {
 } else {
     document.querySelector('.container').innerHTML = '<h1>Invalid mentor ID</h1>';
 }
+
+// Get modal, button, and close elements
+const modal = document.getElementById('modal');
+const bookButton = document.getElementById('bookButton');
+const closeModal = document.getElementById('closeModal');
+
+// Enable the book button and set up the click event
+bookButton.disabled = false;  // Enable the button initially (remove this if it should be enabled dynamically)
+
+// When the button is clicked, show the modal
+bookButton.addEventListener('click', () => {
+  modal.style.display = 'block';
+});
+
+// When the close (x) is clicked, hide the modal
+closeModal.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// Hide modal when clicking anywhere outside of the modal content
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};
+
+// Form submission handler
+document.getElementById('userForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form from submitting normally
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  // Perform actions with the form data here
+  console.log(`Name: ${name}, Email: ${email}, Phone: ${phone}`);
+
+  // Close the modal after submission
+  modal.style.display = 'none';
+});
