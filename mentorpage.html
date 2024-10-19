@@ -1,58 +1,693 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentor Availability</title>
-  <link rel="stylesheet" href="templates/mentorstyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Availability</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #f0f2f5;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+:root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #f0f2f5;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Keep all existing styles until the rating system section */
+        /* [Previous styles remain exactly the same until rating system styles] */
+
+        /* Updated Rating System Styles */
+        .rating-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .rating-content {
+            background: #111;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #444;
+            color: #666;
+        }
+
+        .star-widget {
+            direction: rtl;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .star-widget input {
+            display: none;
+        }
+
+        .star-widget label {
+            font-size: 40px;
+            color: #444;
+            padding: 10px;
+            cursor: pointer;
+            float: right;
+            transition: all 0.2s ease;
+        }
+
+        .star-widget input:not(:checked) ~ label:hover,
+        .star-widget input:not(:checked) ~ label:hover ~ label {
+            color: #fd4;
+        }
+
+        .star-widget input:checked ~ label {
+            color: #fd4;
+        }
+
+        .star-widget input#rate-5:checked ~ label {
+            color: #fe7;
+            text-shadow: 0 0 20px #952;
+        }
+
+        .textarea {
+            height: 100px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .textarea textarea {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            color: #eee;
+            border: 1px solid #333;
+            background: #222;
+            padding: 10px;
+            font-size: 17px;
+            resize: none;
+        }
+
+        .textarea textarea:focus {
+            border-color: #444;
+        }
+
+        #ratingForm .btn {
+            height: 45px;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        #ratingForm .btn button {
+            height: 100%;
+            width: 100%;
+            border: 1px solid #444;
+            outline: none;
+            background: #222;
+            color: #999;
+            font-size: 17px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #ratingForm .btn button:hover {
+            background: #1b1b1b;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .availability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            text-align: center;
+        }
+
+        .time-slot button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .time-slot button:disabled {
+            background: rgba(255, 0, 0, 0.4);
+            cursor: not-allowed;
+        }
+
+        .time-slot.selected button {
+            background: var(--accent-color);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #userForm {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .book-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .book-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Rating System Styles */
+        .rating-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .rating-content {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .star-widget {
+            direction: rtl;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .star-widget input {
+            display: none;
+        }
+
+        .star-widget label {
+            font-size: 40px;
+            color: #444;
+            padding: 10px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .star-widget input:not(:checked) ~ label:hover,
+        .star-widget input:not(:checked) ~ label:hover ~ label {
+            color: #fd4;
+        }
+
+        .star-widget input:checked ~ label {
+            color: #fd4;
+        }
+
+        .textarea {
+            margin-top: 20px;
+        }
+
+        .textarea textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        #dateInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        
+    </style>
 </head>
-
 <body>
-  <nav class="navbar">
-    <a href="home.html" class="logo">
-        ConnectMinds
-    </a>
-    <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="#mission">About Us</a>
-        <a href="our team.html">Our Team</a>
-        <a href="mentor.html">Mentors</a>
-        <a href="login.html#form-open">Sign In</a>
+    <nav class="navbar">
+        <a href="home.html" class="logo">ConnectMinds</a>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="#mission">About Us</a>
+            <a href="our team.html">Our Team</a>
+            <a href="mentor.html">Mentors</a>
+            <a href="login.html#form-open">Sign In</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Mentor Availability</h1>
+        <div class="availability-grid" id="availabilityGrid"></div>
+        <button class="book-button" id="bookButton" disabled>Book Selected Slot</button>
     </div>
-</nav>
 
-  <div class="container">
-    <h1>Mentor Availability</h1>
-    <div class="availability-grid" id="availabilityGrid"></div>
-    <button class="book-button" id="bookButton" disabled>Book Selected Slot</button>
-  </div>
-
-  <!-- Modal Structure -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-      <h2>Book Appointment</h2>
-      <p>Mentorship Time: <span id="selectedDateTime"></span></p>
-      <form id="userForm">
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required><br><br>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Book Appointment</h2>
+            <p>Mentorship Time: <span id="selectedDateTime"></span></p>
+            <form id="userForm">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="book-button">Submit</button>
+            </form>
         </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required><br><br>
-        </div>
-        <div>
-          <label for="phone">Phone:</label>
-          <input type="tel" id="phone" name="phone" required><br><br>
-        </div>
-        <button type="submit" class="book-button">Submit</button>
-      </form>
     </div>
-  </div>
 
-  <script src="templates/mentorscript.js"></script>
+    <div id="ratingContainer" class="rating-container">
+        <div class="rating-content">
+            <h2>Rate Your Experience</h2>
+            <div class="star-widget">
+                <input type="radio" name="rate" id="rate-5" value="5">
+                <label for="rate-5" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-4" value="4">
+                <label for="rate-4" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-3" value="3">
+                <label for="rate-3" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-2" value="2">
+                <label for="rate-2" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-1" value="1">
+                <label for="rate-1" class="fas fa-star"></label>
+            </div>
+            <form id="ratingForm">
+                <div class="textarea">
+                    <textarea cols="30" rows="5" placeholder="Describe your experience.."></textarea>
+                </div>
+                <div class="btn">
+                    <button type="submit" class="book-button">Submit Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const mentors = [
+            {
+                id: 1,
+                name: "Dr. Birmohan Singh",
+                availability: [
+                    { "time": "10:00 AM - 11:00 AM", "booked": false },
+                    { "time": "2:00 PM - 3:00 PM", "booked": true },
+                    { "time": "4:00 PM - 5:00 PM", "booked": false }
+                ]
+            },
+
+            {
+        id: 2,
+        name: "Dr. Damanpreet Singh",
+        availability: [
+            { "time": "9:00 AM - 10:00 AM", "booked": true },
+            { "time": "11:00 AM - 12:00 PM", "booked": false },
+            { "time": "2:00 PM - 3:00 PM", "booked": true }
+        ]
+    },
+    {
+        id: 3,
+        name: "Dr. Major Singh Goraya",
+        availability: [
+            { "time": "10:30 AM - 11:30 AM", "booked": false },
+            { "time": "12:30 PM - 1:30 PM", "booked": true },
+            { "time": "3:30 PM - 4:30 PM", "booked": false }
+        ]
+    },
+    {
+        id: 4,
+        name: "Dr. Manoj Sachan",
+        availability: [
+            { "time": "8:00 AM - 9:00 AM", "booked": true },
+            { "time": "1:00 PM - 2:00 PM", "booked": false },
+            { "time": "4:00 PM - 5:00 PM", "booked": true }
+        ]
+    },
+    {
+        id: 5,
+        name: "Dr. Gurjinder Kaur",
+        availability: [
+            { "time": "9:30 AM - 10:30 AM", "booked": false },
+            { "time": "12:00 PM - 1:00 PM", "booked": true },
+            { "time": "3:00 PM - 4:00 PM", "booked": false }
+        ]
+    },
+    {
+        id: 6,
+        name: "Dr. Amar Nath",
+        availability: [
+            { "time": "10:00 AM - 11:00 AM", "booked": true },
+            { "time": "2:00 PM - 3:00 PM", "booked": false },
+            { "time": "4:00 PM - 5:00 PM", "booked": true }
+        ]
+    },
+    {
+        id: 7,
+        name: "Dr. Jagdeep Singh",
+        availability: [
+            { "time": "9:00 AM - 10:00 AM", "booked": false },
+            { "time": "11:00 AM - 12:00 PM", "booked": true },
+            { "time": "3:00 PM - 4:00 PM", "booked": false }
+        ]
+    },
+    {
+        id: 8,
+        name: "Dr. Manminder Singh",
+        availability: [
+            { "time": "10:00 AM - 11:00 AM", "booked": false },
+            { "time": "1:00 PM - 2:00 PM", "booked": true },
+            { "time": "4:00 PM - 5:00 PM", "booked": false }
+        ]
+    },
+    {
+        id: 9,
+        name: "Dr. Preetpal Kaur Buttar",
+        availability: [
+            { "time": "10:00 AM - 11:00 AM", "booked": false },
+            { "time": "12:00 PM - 1:00 PM", "booked": true },
+            { "time": "3:00 PM - 4:00 PM", "booked": false }
+        ]
+    },
+            // ... (rest of the mentors data)
+        ];
+
+        function getMentorById(id) {
+            return mentors.find(mentor => mentor.id === parseInt(id));
+        }
+
+        function renderAvailability(mentor) {
+            const grid = document.getElementById('availabilityGrid');
+            grid.innerHTML = '';
+            
+            // Add date input
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.id = 'dateInput';
+            dateInput.min = new Date().toISOString().split('T')[0];
+            dateInput.addEventListener('change', updateBookButton);
+            grid.parentElement.insertBefore(dateInput, grid);
+
+            mentor.availability.forEach((slot, index) => {
+                const slotElement = document.createElement('div');
+                slotElement.classList.add('time-slot');
+                if (slot.booked) {
+                    slotElement.classList.add('booked');
+                }
+                const button = document.createElement('button');
+                button.textContent = slot.time;
+                button.disabled = slot.booked;
+                slotElement.appendChild(button);
+
+                if (!slot.booked) {
+                    button.addEventListener('click', () => toggleSlotSelection(slotElement, index));
+                }
+
+                grid.appendChild(slotElement);
+            });
+        }
+
+        function toggleSlotSelection(slotElement, index) {
+            const allSlots = document.querySelectorAll('.time-slot');
+            allSlots.forEach(slot => slot.classList.remove('selected'));
+            slotElement.classList.add('selected');
+            updateBookButton();
+        }
+
+        function updateBookButton() {
+            const selectedSlot = document.querySelector('.time-slot.selected');
+            const dateInput = document.getElementById('dateInput');
+            const bookButton = document.getElementById('bookButton');
+            bookButton.disabled = !selectedSlot || !dateInput.value;
+        }
+
+        // Initialize booking system
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mentorId = urlParams.get('id');
+
+            if (mentorId) {
+                const mentor = getMentorById(parseInt(mentorId));
+                if (mentor) {
+                    document.querySelector('h1').textContent = `${mentor.name}'s Availability`;
+                    renderAvailability(mentor);
+                }
+            }
+
+            const modal = document.getElementById('modal');
+            const bookButton = document.getElementById('bookButton');
+            const closeModal = document.getElementById('closeModal');
+            const userForm = document.getElementById('userForm');
+            const ratingContainer = document.getElementById('ratingContainer');
+            const ratingForm = document.getElementById('ratingForm');
+
+            // Show booking modal
+            bookButton.addEventListener('click', () => {
+                const selectedSlot = document.querySelector('.time-slot.selected button');
+                const selectedDate = document.getElementById('dateInput').value;
+                if (selectedSlot && selectedDate) {
+                    document.getElementById('selectedDateTime').textContent = 
+                        `${selectedDate} at ${selectedSlot.textContent}`;
+                    modal.style.display = 'block';
+                }
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Handle booking form submission
+            userForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                modal.style.display = 'none';
+                ratingContainer.style.display = 'block';
+            });
+
+            // Handle rating form submission
+            ratingForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const rating = document.querySelector('input[name="rate"]:checked');
+                const feedback = document.querySelector('.textarea textarea').value;
+                
+                if (rating) {
+                    console.log(`Rating: ${rating.value}, Feedback: ${feedback}`);
+                    alert('Thank you for your feedback!');
+                    ratingContainer.style.display = 'none';
+                } else {
+                    alert('Please select a rating before submitting.');
+                }
+            });
+
+            // Close modals when clicking outside
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+                if (event.target === ratingContainer) {
+                    ratingContainer.style.display = 'none';
+                }
+            };
+        });
+    </script>
 </body>
-
 </html>
